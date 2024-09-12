@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Arrays;
 
-// ä¸‹é¢æ˜¯ä½¿ç”¨Jaccardç›¸ä¼¼åº¦æ¥æ£€æµ‹æ–‡ç« ç›¸ä¼¼åº¦çš„ç®€å•Javaç¨‹åº
-// Jaccardç›¸ä¼¼åº¦è®¡ç®—çš„æ˜¯ä¸¤ä¸ªé›†åˆçš„äº¤é›†ä¸å¹¶é›†çš„æ¯”ç‡
-// æˆ‘ä»¬å°†æ–‡æœ¬åˆ†å‰²æˆå•è¯ï¼Œç„¶åè®¡ç®—è¿™äº›å•è¯çš„Jaccardç›¸ä¼¼åº¦
+// ÏÂÃæÊÇÊ¹ÓÃJaccardÏàËÆ¶ÈÀ´¼ì²âÎÄÕÂÏàËÆ¶ÈµÄ¼òµ¥Java³ÌĞò
+// JaccardÏàËÆ¶È¼ÆËãµÄÊÇÁ½¸ö¼¯ºÏµÄ½»¼¯Óë²¢¼¯µÄ±ÈÂÊ
+// ÎÒÃÇ½«ÎÄ±¾·Ö¸î³Éµ¥´Ê£¬È»ºó¼ÆËãÕâĞ©µ¥´ÊµÄJaccardÏàËÆ¶È
 
 public class checking {
     public static void main(String[] args) throws IOException {
@@ -20,7 +20,7 @@ public class checking {
         PrintStream SysOut = System.out;
         System.setOut(out);
         double similarity = calculateJaccardSimilarity(content1, content2);
-        System.out.println("ç›¸ä¼¼åº¦ï¼š" + similarity);
+        System.out.println("ÏàËÆ¶È£º" + similarity);
         System.setOut(SysOut);
     }
 
@@ -28,23 +28,23 @@ public class checking {
         Set<String> set1 = new HashSet<>(Arrays.asList(text1.toLowerCase().split("\\s+")));
         Set<String> set2 = new HashSet<>(Arrays.asList(text2.toLowerCase().split("\\s+")));
 
-        // å»é™¤æ ‡ç‚¹ç¬¦å·
+        // È¥³ı±êµã·ûºÅ
         set1.removeIf(word -> word.matches("\\p{Punct}"));
         set2.removeIf(word -> word.matches("\\p{Punct}"));
 
-        // è®¡ç®—äº¤é›†å’Œå¹¶é›†
+        // ¼ÆËã½»¼¯ºÍ²¢¼¯
         Set<String> intersection = new HashSet<>(set1);
         intersection.retainAll(set2);
 
         Set<String> union = new HashSet<>(set1);
         union.addAll(set2);
 
-        // æœ€ç»ˆè®¡ç®—ç»“æœä¸ºäº¤é›†å¤§å°é™¤ä»¥å¹¶é›†å¤§å°å¾—åˆ°ç›¸ä¼¼åº¦
+        // ×îÖÕ¼ÆËã½á¹ûÎª½»¼¯´óĞ¡³ıÒÔ²¢¼¯´óĞ¡µÃµ½ÏàËÆ¶È
         return (double) intersection.size() / union.size();
     }
 
     public static String readFileToString(String filePath) throws IOException {
-        // ä½¿ç”¨StringBuilderæ„å»ºè¯»æ–‡ç« å‡½æ•°
+        // Ê¹ÓÃStringBuilder¹¹½¨¶ÁÎÄÕÂº¯Êı
         StringBuilder content = new StringBuilder();
         try (FileReader fr = new FileReader(filePath);
              BufferedReader br = new BufferedReader(fr)) {
