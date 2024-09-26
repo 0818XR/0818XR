@@ -1,10 +1,10 @@
+import java.util.Random;
+
 public class GenerateArithmeticProblems {
     /**
      *  在程序运行之前应该使用参数限定程序中的表达式数量以及数值的范围
-     *  生成的四则运算中至多有三个数做运算，最多有两个运算符，可以分成两种情况，一种是三个数，一种是两个数
-     *  对于两个数的情况，只需要随机生成一个运算符，随机填入两个数值，数值中，正数应该居多，分数次之，采用不同权重生成数值
-     *  对于三个数的情况，需要随机生成三个数字，生成两个运算符
-     *  需要随机填入左右括号，左右括号要填的有意义，包含1,2或者2,3的位置
+     *
+     *  数值中，正数应该居多，分数次之，采用不同权重生成数值
      *  生成分数时分成两种情况，一种填入两个，一种填入三个数值，左边的自然数，右边的分子分母，一样可以调用生成自然数的函数
      *  随机生成完成后，将生成的数值，运算符集合起来形成表达式
      *  计算表达式结果
@@ -17,34 +17,48 @@ public class GenerateArithmeticProblems {
 
     // 该函数会随机生成一个范围内的正数并返回
     public static int generateNaturalNumber(int range) {
-
+        Random random = new Random(range);
+        return random.nextInt();
     }
 
     // 该函数完成生成一个表达式的功能
-    public static void generateOne(int range) {
-
+    public static String generateOne(int range) {
+        String s = "1 + 2";
+        return s;
     }
+
+
+    // 该函数完成对表达式的查重和求解，若重复，或者为负数则返回 flase，否则返回 true
+    // 并将答案写进Answers.txt文件，表达式写入生成列表
+    public static boolean check(String oneQuestion)
+    {
+        return true;
+    }
+
+
+
 
     // 从命令行中读取两个参数，使用 -n 参数控制生成题目的个数，使用 -r 参数控制题目中数值的范围
     public static void main(String[] args) {
-        int number;
-        int range;
+        int number = 1;
+        int range = 1;
         if(args[0].equals("-n"))
         {
-            if(Integer.valueOf(args[1]) > 0)
+            if(Integer.parseInt(args[1]) > 0)
             {
-                number = Integer.valueOf(args[1]);
+                number = Integer.parseInt(args[1]);
                 if (args[2].equals("-r"))
                 {
-                    if(Integer.valueOf(args[3]) > 0)
+                    if(Integer.parseInt(args[3]) > 0)
                     {
-                        range = Integer.valueOf(args[3]);
+                        range = Integer.parseInt(args[3]);
                     } else {
                         System.out.println("请使用正数！");
                         return;
                     }
                 } else {
                     System.out.println("请使用 -r 参数设置生成的题目中数值的范围");
+                    return;
                 }
             } else {
                 System.out.println("请使用正数！");
@@ -55,13 +69,16 @@ public class GenerateArithmeticProblems {
             return;
         }
 
+        System.out.println("正在生成中");
         // 在这个 for 循环中，会循环生成 n 个表达式，查重后将表达式写入文件中
         for(int i = 0;i < number;i++)
         {
-
+            String oneQuestion = generateOne(range);
+            while (!check(oneQuestion))
+            {
+                oneQuestion = generateOne(range);
+            }
         }
-
+        System.out.println("生成完毕！");
     }
-
-
 }
